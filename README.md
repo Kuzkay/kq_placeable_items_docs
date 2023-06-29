@@ -3,7 +3,7 @@
 ___
 ## qb-inventory
 
-### Step 1 `qb-inventory/html/ui.html`
+### `qb-inventory/html/ui.html`
 add the following line between lines 36 and 37
 ```html
 <div class="inv-option-item" id="item-kq-place"><p>PLACE</p></div>
@@ -22,7 +22,7 @@ Example:
 </div>
 ```
 
-### Step 2 `qb-inventory/html/js/app.js`
+### `qb-inventory/html/js/app.js`
 
 At the very of the file. Add the following
 ```js
