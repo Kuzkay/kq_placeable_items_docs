@@ -95,3 +95,10 @@ elseif data1.current.action == 'return' then
   ESX.UI.Menu.CloseAll()
   ESX.ShowInventory()
 ```
+
+### `es_extended/locales/en.lua` (or the locale you use)
+Add the following to line to your locale
+
+```lua
+['place'] = 'place',
+```
