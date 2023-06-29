@@ -102,3 +102,55 @@ Add the following to line to your locale
 ```lua
 ['place'] = 'place',
 ```
+___
+
+## esx_inventoryhud
+
+### `esx_inventoryhud/html/ui.html`
+
+Add the following line between line 34 and 35
+```html
+<div class="control" id="kq-place">Place</div>
+```
+
+Example:
+```html
+<div class="controls-div">
+	<input type="number" class="control" id="count" value="1">
+	<div class="control" id="use"></div>
+	<div class="control" id="kq-place">Place</div>
+	<div class="control" id="give"></div>
+        <div class="control" id="drop"></div>
+</div>
+```
+
+### `esx_inventoryhud/html/js/inventory.js`
+
+Add the following on the line 259
+
+```js
+$('#kq-place').droppable({
+        hoverClass: 'hoverControl',
+        drop: function (event, ui) {
+            itemData = ui.draggable.data("item");
+
+            if (itemData == undefined) {
+                return;
+            }
+
+            itemInventory = ui.draggable.data("inventory");
+
+            if (itemInventory == undefined || itemInventory == "second") {
+                return;
+            }
+
+	    closeInventory();
+	    $.post("http://kq_placeable_items/HookPlaceItem", JSON.stringify({
+            	item: itemData.name,
+		size: 1,
+	    }));
+        }
+    });
+```
+
+___
