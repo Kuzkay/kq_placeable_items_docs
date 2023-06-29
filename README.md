@@ -10,7 +10,6 @@ add the following line between lines 36 and 37
 ```
 
 Example:
-`qb-inventory/html/ui.html`
 ```html
 <div class="inv-options">
   <div class="inv-options-list">
@@ -27,7 +26,6 @@ Example:
 
 At the very of the file. Add the following
 ```js
-
 $("#item-kq-place").droppable({
     hoverClass: "button-hover",
     drop: function(event, ui) {
@@ -49,3 +47,51 @@ $("#item-kq-place").droppable({
 });
 ```
 ___
+
+## es_extended (default inventory)
+> This might be a bit different depending on the version of your es_extended.
+> Make sure to look at the surrounding lines of code around the new lines provider in the example
+
+### `es_extended/client/functions.lua`
+Add the following line to the line 819
+```lua
+table.insert(elements, {label = _U('place'), action = 'kq-place', type = data.current.type, value = data.current.value})
+```
+
+Example:
+```lua
+if data.current.usable then
+  table.insert(elements, {label = _U('use'), action = 'use', type = data.current.type, value = data.current.value})
+end
+
+table.insert(elements, {label = _U('place'), action = 'kq-place', type = data.current.type, value = data.current.value})
+
+if data.current.canRemove then
+  if player ~= -1 and distance <= 3.0 then
+	  table.insert(elements, {label = _U('give'), action = 'give', type = data.current.type, value = data.current.value})
+  end
+
+  table.insert(elements, {label = _U('remove'), action = 'remove', type = data.current.type, value = data.current.value})
+end
+```
+
+Add the following lines under the line 941 (originally 940)
+
+```lua
+elseif data1.current.action == 'kq-place' then
+  TriggerServerEvent('kq_placeable_items:hookPlaceItem', item, 1)
+  ESX.UI.Menu.CloseAll()
+```
+
+Example:
+
+```lua
+elseif data1.current.action == 'use' then
+  TriggerServerEvent('esx:useItem', item)
+elseif data1.current.action == 'kq-place' then
+  TriggerServerEvent('kq_placeable_items:hookPlaceItem', item, 1)
+  ESX.UI.Menu.CloseAll()
+elseif data1.current.action == 'return' then
+  ESX.UI.Menu.CloseAll()
+  ESX.ShowInventory()
+```
