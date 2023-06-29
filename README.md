@@ -79,7 +79,7 @@ Add the following lines under the line 941 (originally 940)
 
 ```lua
 elseif data1.current.action == 'kq-place' then
-  TriggerServerEvent('kq_materialize:client:hookPlaceItem', item, 1)
+  TriggerEvent('kq_materialize:client:hookPlaceItem', item, 1)
   ESX.UI.Menu.CloseAll()
 ```
 
@@ -89,7 +89,7 @@ Example:
 elseif data1.current.action == 'use' then
   TriggerServerEvent('esx:useItem', item)
 elseif data1.current.action == 'kq-place' then
-  TriggerServerEvent('kq_materialize:client:hookPlaceItem', item, 1)
+  TriggerEvent('kq_materialize:client:hookPlaceItem', item, 1)
   ESX.UI.Menu.CloseAll()
 elseif data1.current.action == 'return' then
   ESX.UI.Menu.CloseAll()
