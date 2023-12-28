@@ -32,13 +32,13 @@ $("#item-kq-place").droppable({
         setTimeout(function() {
             IsDragging = false;
         }, 300);
-        fromData = ui.draggable.data("item");
+        formData = ui.draggable.data("item");
 
         $.post(
             "https://kq_placeable_items/HookPlaceItem",
             JSON.stringify({
-                item: fromData.name,
-                size: 1,
+                item: formData.name,
+                size: formData.amount || 1,
             })
         );
 
@@ -47,6 +47,9 @@ $("#item-kq-place").droppable({
 });
 ```
 ___
+
+## qs-inventory (Quasar)
+qs-inventory will work automatically. No changes needed. Simply start this script after qs-inventory (Make sure that your qs-inventory is up to date)
 
 ## es_extended (default inventory)
 > This might be a bit different depending on the version of your es_extended.
@@ -147,7 +150,7 @@ $('#kq-place').droppable({
 	    closeInventory();
 	    $.post("http://kq_placeable_items/HookPlaceItem", JSON.stringify({
             	item: itemData.name,
-		size: 1,
+		size: itemData.amount || 1,
 	    }));
         }
     });
