@@ -107,6 +107,40 @@ Add the following to line to your locale
 ```
 ___
 
+## lj-inventory
+### `lj-inventory/html/js/app.js`
+Add the following code at the bottom of the file
+```js
+$("#item-place").droppable({
+  hoverClass: "button-hover",
+  drop: function(event, ui) {
+    setTimeout(function() {
+      IsDragging = false;
+    }, 300);
+    fromData = ui.draggable.data("item");
+    fromInventory = ui.draggable.parent().attr("data-inventory");
+    amount = $("#item-amount").val();
+    if (amount == 0) {
+      amount = fromData.amount;
+    }
+    $.post(
+      "http://kq_placeable_items/HookPlaceItem",
+      JSON.stringify({
+        item: fromData.name,
+        size: parseInt(amount),
+      })
+    );
+  },
+});
+```
+
+### `lj-inventory/html/ui.html`
+
+Add the following line between lines 63 and 64 (Under the "item-give" element)
+```html
+<div class="inv-option-item" id="item-place"><p>Place</p></div>
+```
+
 ## esx_inventoryhud
 
 ### `esx_inventoryhud/html/ui.html`
