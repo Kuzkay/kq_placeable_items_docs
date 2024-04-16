@@ -46,6 +46,55 @@ $("#item-kq-place").droppable({
     },
 });
 ```
+______
+## ps-inventory
+
+### `ps-inventory/html/ui.html`
+add the following line between lines 63 and 64
+```html
+<div class="inv-option-item" id="item-place"><p>Place</p></div>
+```
+
+Example:
+```html
+<div class="inv-option-item" id="item-give"><p>Give</p></div>
+<div class="inv-option-item" id="item-place"><p>Place</p></div>
+<div class="combine-option-container">
+	<div class="btn-combine CombineItem"><p>Combine</p></div>
+	<div class="btn-combine SwitchItem"><p>Switch</p></div> -->
+</div>
+```
+
+### `ps-inventory/html/js/app.js`
+
+At the very of the file. Add the following
+```js
+
+$("#item-place").droppable({
+    hoverClass: "button-hover",
+    drop: function (event, ui) {
+        setTimeout(function () {
+            IsDragging = false;
+        }, 300);
+
+        console.log('on drop placement');
+
+        fromData = ui.draggable.data("item");
+        amount = $("#item-amount").val();
+        console.log(amount, fromData.name, JSON.stringify(fromData));
+        if (amount == 0) {
+            amount = fromData.amount;
+        }
+        $.post(
+            "https://kq_placeable_items/HookPlaceItem",
+            JSON.stringify({
+                item: fromData.name,
+                size: parseInt(amount),
+            })
+        );
+    },
+});
+```
 ___
 
 ## qs-inventory (Quasar)
@@ -124,7 +173,7 @@ $("#item-place").droppable({
       amount = fromData.amount;
     }
     $.post(
-      "http://kq_placeable_items/HookPlaceItem",
+      "https://kq_placeable_items/HookPlaceItem",
       JSON.stringify({
         item: fromData.name,
         size: parseInt(amount),
@@ -182,7 +231,7 @@ $('#kq-place').droppable({
             }
 
 	    closeInventory();
-	    $.post("http://kq_placeable_items/HookPlaceItem", JSON.stringify({
+	    $.post("https://kq_placeable_items/HookPlaceItem", JSON.stringify({
             	item: itemData.name,
 		size: itemData.amount || 1,
 	    }));
