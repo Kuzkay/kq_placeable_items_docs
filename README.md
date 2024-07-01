@@ -1,7 +1,48 @@
 # KuzQuality | Placeable items
 ## Adding "Place" options to your inventory system
 ___
-## qb-inventory
+## qb-inventory (new)
+
+### `qb-inventory/html/index.html`
+add the following line between lines 194 and 195
+```html
+<li @click="placeItem(contextMenuItem)">Place</li>
+```
+Example:
+```html
+<ul v-if="showContextMenu" class="context-menu" :style="{ top: contextMenuPosition.top, left: contextMenuPosition.left }">
+  <li v-if="contextMenuItem.useable" @click="useItem(contextMenuItem)">Use</li>
+  <li @click="placeItem(contextMenuItem)">Place</li>
+  <li @mouseover="showSubmenu = true" @mouseleave="showSubmenu = false">
+```
+
+### `qb-inventory/html/app.js`
+add the following code between lines 623 and 624
+```js
+async placeItem(item) {
+	if (!item || item.useable === false) {
+		return;
+	}
+  const playerItemKey = Object.keys(this.playerInventory).find((key) => this.playerInventory[key] && this.playerInventory[key].slot === item.slot);
+  if (playerItemKey) {
+  	try {
+    	await axios.post("https://kq_placeable_items/HookPlaceItem", {
+        item: item,
+				size: 1,
+			});
+	    if (item.shouldClose) {
+	    	this.closeInventory();
+			}
+		} catch (error) {
+			console.error("Error using the item: ", error);
+		}
+	}
+	this.showContextMenu = false;
+},
+```
+
+___
+## qb-inventory (old)
 
 ### `qb-inventory/html/ui.html`
 add the following line between lines 36 and 37
