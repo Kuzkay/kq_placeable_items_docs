@@ -20,7 +20,7 @@ Example:
 add the following code between lines 623 and 624
 ```js
 async placeItem(item) {
-	if (!item || item.useable === false) {
+	if (!item) {
 		return;
 	}
   const playerItemKey = Object.keys(this.playerInventory).find((key) => this.playerInventory[key] && this.playerInventory[key].slot === item.slot);
