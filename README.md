@@ -27,9 +27,9 @@ async placeItem(item) {
   if (playerItemKey) {
   	try {
     	await axios.post("https://kq_placeable_items/HookPlaceItem", {
-        item: item,
-				size: 1,
-			});
+	        item: item.name,
+		size: 1,
+	});
 	    if (item.shouldClose) {
 	    	this.closeInventory();
 			}
