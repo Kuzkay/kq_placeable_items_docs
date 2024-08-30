@@ -34,7 +34,7 @@ async placeItem(item) {
 	    	this.closeInventory();
 			}
 		} catch (error) {
-			console.error("Error using the item: ", error);
+			console.error("Error placing the item: ", error);
 		}
 	}
 	this.showContextMenu = false;
